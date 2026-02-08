@@ -5,7 +5,7 @@ class Player:
     el que juega, en un tablero con la recomendación del oráculo.
     """
 
-    def __init__(self, name: str, char:str = None, oracle = None)-> None:
+    def __init__(self, name: str, char = None, opponent = None, oracle = None)-> None:
         #refactorizo player para que solo necesite como parametro name, Match se encarga de char de ahora en más
         #importo dentro de la función debido a que me generaba un circular import
         if oracle is None:
@@ -14,6 +14,21 @@ class Player:
         self._name = name
         self._char = char
         self._oracle = oracle
+        self._opponent = opponent
+
+    @property
+    def opponent(self):
+        """
+        Propiedad por la cual podemos acceder
+        al oponente de cada player
+        """
+        return self._opponent
+    
+    @opponent.setter #para asignar un valor
+    def opponent(self, other):
+        if other != None: #Ya que le hemos asignado como valor pred. None hay que especificar q no sea None
+            self._opponent = other
+            other._opponent = self
     
     def play(self, board: list[list]):
         """
@@ -53,7 +68,8 @@ class Player:
     #filter NO DEVUELVE UNA LISTA, por lo que lo convertimos manualmente a lista
 class HumanPlayer(Player):
     
-    def __init__(self, name: str, char: str): #solo le va a pasar su nombre, y su char con el que juega
+    def __init__(self, name: str, char: str = None): #solo le va a pasar su nombre, Match se encarga de asignar char
+        
         super().__init__(name, char) #es su especie de "oraculo"
 
     def _ask_oracle(self, board):
