@@ -59,10 +59,24 @@ class Board:
         """
         Devuelve representacion textual del objeto: las columnas
         """
+        #return f"{self.__class__}: {self._columns}" PROBAR MAS TARDE!!!!!!!!!!!!!!!
         return f"< Board:/n{(self._columns)}>"
+    
+    def __len__(self):
+        """
+        Método "mágico" para devolver la longitud de un objeto
+        sin tener que depender de importar BOARD_LENGHT
+        """
+        return len(self._columns)
         
     # Interfaz pública
     def print_board(self, matrix_init: MatrixColumn)->str:
+        """ 
+        Devuelve un board visual en la terminal transformando
+        los elementos de las columnas en strings.
+        Para los espacios vacíos (sin jugadas) None, se 
+        representa con " - "
+        """
         matrix = transpose(matrix_init)
         new_matrix = ""
         characters = ""
@@ -85,19 +99,26 @@ class Board:
         es de una columna inexistente
         """
         try:
-            #selecciona la columna
+            #selecciona la columna ESPECIFICA
             column = self._columns[col_number]
-            if not self.is_full():
+            if not self.is_full(col_number): #si no está llena
                 for index, item in enumerate(column):
-                    if item == None:
-                        column[index] == player_char
+                    if item == None: #y hay un slot vacío
+                        column[index] = player_char #juego aqui("cae la ficha")
                         break
             
         except IndexError:
-            raise ValueError(f"{col_number} no es válido")
+            raise ValueError(f"{col_number} no es válido") #si me pasan una columna inexistente
     
-    def is_full(self):
-        return self._columns[-1] != None
+    def is_full(self, index):
+        """
+        Predicado que devuelve,a partir de un indice, si X columna
+        de sself._columns está llena o no. 
+        Si el último elemento de la columna es diferente
+        a None, entonces está lleno (es decir True).
+        """
+        return self._columns[index][-1] != None
+    
     #Interfaz privada
     def is_victory(self, player_char: str)-> bool:
         """

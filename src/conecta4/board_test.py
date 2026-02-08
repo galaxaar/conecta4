@@ -39,3 +39,14 @@ def test__has_descending_victory():
     
     assert descending.is_victory("x") 
     assert descending.is_victory("o") == False
+
+def test_is_full():
+    condition = Board.from_list([["x", "o", "x", None],
+                                ["x", "o", "o", "x"],
+                                ["o", "x", "x", "o"],
+                                [None, None, None, None]])
+    
+
+    assert condition.is_full(0) == False
+    assert condition.is_full(2)
+    assert condition.is_full(3) == False
