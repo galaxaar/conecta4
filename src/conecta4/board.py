@@ -90,7 +90,7 @@ class Board:
             characters = ""
         return new_matrix
     
-    def play(self, player_char: str, col_number: int)-> None: 
+    def add(self, player_char: str, col_number: int)-> None: 
         """
         Método impuro solo lleva a cabo efecto secundarios
         (cambia el tablero)

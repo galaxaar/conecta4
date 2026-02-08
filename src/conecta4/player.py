@@ -14,18 +14,30 @@ class Player:
         self._char = char
         self._oracle = oracle
     
-    def play(self, board):
+    def play(self, board: list[list]):
         """
         Elige de entre todas las columnas disponibles, la que contenga
         la mejor jugada (recomendada por el oráculo)
         """
         
-        #Obtengo las recomendaciones
-        recomm = self._oracle.get_recommendation(board, self)
-        #Selecciona la mejor
-        best = self._choose(recomm)
-        #Metemos ficha (jugamos)
-        board.play(self._char, best.index)
+        #Obtengo las recomendaciones (utilizo tupla, evito crear una clase para 2 valores)
+        (best, recommendations) = self._ask_oracle(board)
+        #Metemos ficha en la mejor opción (jugamos)
+        self._play_on(board, best.index)
+    
+    def _play_on(self, board: list[list], position: int):
+        """
+        Jugamos en la posición dada (position)
+        """
+        board.add(self._char, position) #metemos el player_char en la posición
+    
+    def _ask_oracle(self, board):
+        """
+        Pregunta al oráculo y devuelve la mejor opción
+        """
+        recommendations = self._oracle.get_recommendation(board, self)
+        best = self._choose(recommendations)
+        return (best, recommendations) #refactorizado, mucho más sencillo
     
     def _choose(self, recommendations):
         """
