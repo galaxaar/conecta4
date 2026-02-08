@@ -5,7 +5,8 @@ class Player:
     el que juega, en un tablero con la recomendación del oráculo.
     """
 
-    def __init__(self, name: str, char:str, oracle = None)-> None:
+    def __init__(self, name: str, char:str = None, oracle = None)-> None:
+        #refactorizo player para que solo necesite como parametro name, Match se encarga de char de ahora en más
         #importo dentro de la función debido a que me generaba un circular import
         if oracle is None:
             from conecta4.oracle import BaseOracle
@@ -100,4 +101,4 @@ def _is_int(string)-> bool:
         num = int(string)# convierte en un int "puro"
         return True
     except:
-        return False #era cualquier otra cosa (otro string, un float, una función) y no la puede convertir a
+        return False #era cualquier otra cosa (otro string, un float, una función) y no la puede convertir a int
