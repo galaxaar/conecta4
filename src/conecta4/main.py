@@ -1,9 +1,10 @@
 from conecta4.board import Board
 from conecta4.list_utils import displace_list
-
+from conecta4.game import Game
 
 if __name__ == "__main__":
-
+    game = Game()
+    game.start()
 
 
     # Crear un board

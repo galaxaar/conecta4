@@ -7,7 +7,9 @@ authors = [
     { name = "galaxar", email = "galaxar.mg@gmail.com" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "pyfiglet>=1.0.4",
+]
 
 [build-system]
 requires = ["uv_build>=0.9.26,<0.10.0"]
