@@ -23,6 +23,8 @@ class ColumnRecommendation:
         self._index = index
         self._classification = classification
     
+    #tuve que implementar las propertys para poder mantener los atributos privados 
+    #y evitar problemas en el futuro
     @property
     def index(self):
         return self._index
