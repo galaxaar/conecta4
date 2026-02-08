@@ -50,6 +50,30 @@ class Player:
         #es decir, todas las columnas que no estén llenas, pasan el filtro
         return valid[0] #la primera que no esté llena
     #filter NO DEVUELVE UNA LISTA, por lo que lo convertimos manualmente a lista
+class HumanPlayer(Player):
+    
+    def __init__(self, name: str, char: str): #solo le va a pasar su nombre, y su char con el que juega
+        super().__init__(name, char) #es su especie de "oraculo"
+
+    def _ask_oracle(self, board):
+        """
+        Mediante un bucle infinito le preguntamos al humano qué
+        jugada quiere realizar. En el bucle se valida su decisión,
+        si está dentro de lo aceptado, sale del bucle SINO
+        el bucle se repite hasta que de una respuesta valida.
+        """
+        from conecta4.oracle import ColumnRecommendation
+        while True: #inicializamos el bucle infinito
+            answer = input("Select a column:  ") #le pido que elija una columna
+            #convierto el answer a int. para que lo reconozca como el parametro num
+            #si alguna de las 3 condiciones no es True, vuelve a empezar el bucle
+            if _is_int(answer) and _is_in_column_range(board, int(answer)) and _not_full_column(board, int(answer)): 
+                #si pasa los and, entonces tomamos su respuesta como una posición
+                position = int(answer)
+            return (ColumnRecommendation(position, None), None) #None ya que el humano elije x si mismo
+
+        
+
 
 #Funciones de validacion de índice de columna
 def _not_full_column(board, num):
