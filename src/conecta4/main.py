@@ -4,7 +4,7 @@ from conecta4.game import Game
 
 if __name__ == "__main__":
     game = Game()
-    game.start()
+    game.star()
 
 
     # Crear un board
